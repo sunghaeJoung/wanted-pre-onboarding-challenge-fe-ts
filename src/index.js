@@ -1,51 +1,68 @@
-/**
- * Represents a book.
- * @constructor
- * @param {string} title - The title of the book.
- * @param {string} author - The author of the book.
- */
-function Book(title, author) {}
+const TodoList = require("./TodoList");
 
-/**
- * Both of these will link to the bar function.
- * @see {@link bar}
- * @see bar
- */
-function foo() {}
+const todoList = new TodoList();
+console.log(todoList.todos.length === 0);
 
-// Use the inline {@link} tag to include a link within a free-form description.
-/**
- * @see {@link foo} for further information.
- * @see {@link http://github.com|GitHub}
- */
-function bar() {}
+todoList.createTodo({
+  id: 0,
+  content: "hello world",
+  completed: false,
+  category: "Todo",
+  tags: ["hi"],
+});
+let todo = todoList.findById(0);
+console.log(todo.id === 0);
+console.log(todo.content === "hello world");
+console.log(todo.completed === false);
+console.log(todo.category === "Todo");
+console.log(todo.tags.length === 1);
 
-/**
- * Generic dairy product.
- * @constructor
- */
-function DairyProduct() {}
+todoList.createTodo({
+  id: 1,
+  content: "hello world",
+  completed: false,
+  category: "Todo",
+  tags: ["hi"],
+});
 
-/**
- * Check whether the dairy product is solid at room temperature.
- * @abstract
- * @return {boolean}
- */
-DairyProduct.prototype.isSolid = function () {
-	throw new Error('must be implemented by subclass!');
-};
+try {
+  todoList.createTodo({
+    id: 0,
+    content: "    ",
+    completed: false,
+    category: "Todo",
+  });
+} catch (e) {
+  console.log(true);
+}
 
-/**
- * Cool, refreshing milk.
- * @constructor
- * @augments DairyProduct
- */
-function Milk() {}
+todoList.updateTodo({
+  id: 0,
+  content: "hi",
+  completed: true,
+  category: "Done",
+  tags: ["hello world", "haha"],
+});
+todo = todoList.findById(0);
+console.log(todo.content === "hi");
+console.log(todo.completed);
+console.log(todo.category === "Done");
+console.log(todo.tags.toString() === "hello world,haha");
 
-/**
- * Check whether milk is solid at room temperature.
- * @return {boolean} Always returns false.
- */
-Milk.prototype.isSolid = function () {
-	return false;
-};
+todoList.updateTodoTag({ id: 0, tagIndex: 0, tag: "hi" });
+todo = todoList.findById(0);
+console.log(todo.tags[0] === "hi");
+
+todoList.deleteTag(0, 1);
+todo = todoList.findById(0);
+console.log(todo.tags.toString() === "hi,");
+
+todoList.deleteAllTag(0);
+todo = todoList.findById(0);
+console.log(todo.tags.toString() === "");
+
+todoList.deleteTodo(0);
+console.log(todoList.todos.length === 1);
+
+todoList.resetTodo();
+console.log(todoList.todos.length === 0);
