@@ -25,105 +25,81 @@ class TodoList {
 
   /**
    * 할일 추가
-   * @param {TodoType} todo
+   * @param {TodoType} todo - 추가할 할일
+   * @returns {void}
    */
-  createTodo(todo) {
-    this.#verifyContent(todo.content);
-    this.todos.push(todo);
-  }
+  createTodo() {}
 
   /**
    * 모든 할일 조회
    * @returns {TodoType[]}
    */
-  get todos() {
-    return [...this.todos];
-  }
+  get todos() {}
 
   /**
    * id로 todo 찾기
-   * @param {number} id
+   * @param {number} id - 찾을 할 일의 id
    * @returns {TodoType} 찾은 할일
    */
-  findById(id) {
-    return this.todos.find((i) => i.id === id);
-  }
+  findById() {}
 
   /**
    * 할일 업데이트
-   * @param {TodoType} todo
+   * @param {TodoType} todo - 바꿀 할 일 정보
    * @throws {Error} Not Found Id
+   * @returns {void}
    */
-  updateTodo(todo) {
-    const findIndex = this.#findTodoIndex(todo.id);
-    this.#verifyContent(todo.content);
-
-    this.todos[findIndex] = {
-      ...todo,
-    };
-  }
+  updateTodo() {}
 
   /**
    * 특정 할 일의 특정 태그를 수정
-   * @param {TodoUpdateType}
+   * @param {TodoUpdateType} todoUpdateType - 할 일의 id, 바꿀 태그의 index, tag 값
+   * @returns {void}
    */
-  updateTodoTag({ id, tagIndex, tag }) {
-    const findIndex = this.#findTodoIndex(id);
-    this.todos[findIndex].tags[tagIndex] = tag;
-  }
+  updateTodoTag() {}
 
   /**
    * ID를 기반으로 특정 할 일을 삭제
-   * @param {number} id
+   * @param {number} id - 제거할 할 일의 id
+   * @returns {void}
    */
-  deleteTodo(id) {
-    this.todos = this.todos.filter((i) => i.id !== id);
-  }
+  deleteTodo() {}
 
   /**
    * 모든 할 일을 제거
+   * @returns {void}
    */
-  resetTodo() {
-    this.todos = [];
-  }
+  resetTodo() {}
 
   /**
    * 특정 할 일의 특정 태그를 삭제
-   * @param {number} todoIndex
-   * @param {number} tagIndex
+   * @param {number} todoIndex - 특정 할 일의 id
+   * @param {number} tagIndex - 특정 할 일의 제거할 tag index
+   * @returns {void}
    */
-  deleteTag(todoIndex, tagIndex) {
-    if (!this.todos[todoIndex].tags) return;
-    delete this.todos[todoIndex].tags[tagIndex];
-  }
+  deleteTag() {}
 
   /**
    * 특정 할 일의 모든 태그를 제거
-   * @param {number} todoIndex
+   * @param {number} todoIndex - 모든 tag를 제거할 특정 할일의 index
+   * @returns {void}
    */
-  deleteAllTag(todoIndex) {
-    this.todos[todoIndex].tags = [];
-  }
+  deleteAllTag() {}
 
   /**
    * 특정 할일 아이디 찾기
    * @param {number} id - 할일 아이디
    * @returns {number} 할일의 index
    */
-  #findTodoIndex(id) {
-    const findIndex = this.todos.findIndex((i) => i.id === id);
-    if (findIndex === -1) throw new Error("Not Found Id");
-    return findIndex;
-  }
+  #findTodoIndex() {}
 
   /**
-   * content 값 검사
+   * content 값이 필수로 들어갔는지 검사
    * @param {string} [content]
+   * @returns {void}
+   * @throws {Error} When content empty cannot create todo
    */
-  #verifyContent(content) {
-    if (!content || content.trim() === "")
-      throw new Error("When content empty cannot create todo");
-  }
+  #verifyContent() {}
 }
 
 module.exports = TodoList;
