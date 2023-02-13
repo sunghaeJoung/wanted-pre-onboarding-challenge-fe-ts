@@ -25,7 +25,6 @@ const createTodo = (todo: TodoType): void => {
   todoList.push(todo);
 }
 
-// 피드백. 찾고자 하는 값이 없을 때 return값이 undefined일 수가 있음 
 const findById = (id: number): TodoType | undefined => {
   return todoList.find(todo => todo.id === id)
 }
@@ -51,11 +50,9 @@ const resetTodo = (): void => {
   todoList = [];
 }
 
-// 피드백. todoIndex가 아니라 todoId가 되어야하지 않을까?
 const deleteTag = (todoIndex: number, tagIndex: number): void => {
   todoList[todoIndex].tags = (todoList[todoIndex]?.tags || []).filter((_, index) => index !== tagIndex)
 }
-// 피드백. 위와 동일
 const deleteAllTag = (todoIndex: number): void => {
   todoList[todoIndex].tags = [];
 };
